@@ -1,0 +1,128 @@
+/* ===================================================================
+   Bloom theme tokens
+   Light values live on :root. Dark overrides live on html.dark
+   (ThemeToggle.jsx adds/removes the "dark" class on <html>).
+=================================================================== */
+
+:root {
+  --bg-app: #F5EFE0;
+  --bg-overlay-1: rgba(232, 220, 188, 0.55);
+  --bg-overlay-2: rgba(201, 162, 39, 0.10);
+  --bg-overlay-3: rgba(111, 163, 110, 0.10);
+  --bg-overlay-4: rgba(232, 220, 188, 0.60);
+
+  --bg-card: #FFFFFF;
+  --border-card: #E9E3D2;
+  --border-card-hover: #D8E2CE;
+  --shadow-card: rgba(30, 50, 34, 0.04);
+  --shadow-card-hover: rgba(30, 50, 34, 0.10);
+
+  --text-primary: #1C2A20;
+  --text-secondary: #7C8A7E;
+  --text-tertiary: #9AA69B;
+  --text-muted: #A3AEA3;
+  --text-faint: #B9C2AE;
+  --text-eyebrow: #6E8A70;
+
+  --accent-green: #4B7B5B;
+  --accent-green-dark: #2F5233;
+  --accent-green-mid: #3A6248;
+  --accent-green-light: #6FA36E;
+  --accent-gold: #C9A227;
+  --accent-gold-light: #E7B65C;
+  --accent-gold-text: #9A7B12;
+
+  --tint-sage-bg: #EDF2E6;
+  --tint-sage-fg: #5C7A5F;
+  --tint-green-bg: #E7EFE2;
+  --tint-green-fg: #3A6248;
+  --tint-gold-bg: #F5EFD9;
+  --tint-gold-fg: #9A7B12;
+
+  --ring-track: #EFE9DA;
+  --botanical-stroke: #3A5C3E;
+  --loading-track: #E4DFCF;
+
+  /* navbar-specific */
+  --nav-bg: rgba(248, 245, 236, 0.72);
+  --nav-border: rgba(228, 223, 207, 0.8);
+  --nav-link-color: #5C6B5E;
+  --nav-link-hover-bg: rgba(75, 123, 91, 0.10);
+  --nav-pill-bg: rgba(255, 255, 255, 0.55);
+  --nav-pill-border: #ECE6D6;
+  --nav-divider: #E4DFCF;
+  --nav-logout-border: #E4DFCF;
+  --nav-logout-bg: #FFFFFF;
+}
+
+html.dark {
+  --bg-app: #1B2119;
+  --bg-overlay-1: rgba(60, 80, 50, 0.25);
+  --bg-overlay-2: rgba(201, 162, 39, 0.06);
+  --bg-overlay-3: rgba(111, 163, 110, 0.08);
+  --bg-overlay-4: rgba(40, 55, 40, 0.35);
+
+  --bg-card: #232B21;
+  --border-card: #333F30;
+  --border-card-hover: #44543F;
+  --shadow-card: rgba(0, 0, 0, 0.25);
+  --shadow-card-hover: rgba(0, 0, 0, 0.35);
+
+  --text-primary: #EDEFE8;
+  --text-secondary: #A6B2A2;
+  --text-tertiary: #8A9986;
+  --text-muted: #7C8A77;
+  --text-faint: #64726090;
+  --text-eyebrow: #8FB587;
+
+  --accent-green: #7DB07E;
+  --accent-green-dark: #A8D6A5;
+  --accent-green-mid: #8FC28F;
+  --accent-green-light: #9AD198;
+  --accent-gold: #E0BE5C;
+  --accent-gold-light: #F0D584;
+  --accent-gold-text: #E0BE5C;
+
+  --tint-sage-bg: #2C3729;
+  --tint-sage-fg: #A6C9A2;
+  --tint-green-bg: #2B3A2A;
+  --tint-green-fg: #9FCB9B;
+  --tint-gold-bg: #3A331F;
+  --tint-gold-fg: #E0BE5C;
+
+  --ring-track: #333F30;
+  --botanical-stroke: #4C6B48;
+  --loading-track: #333F30;
+
+  --nav-bg: rgba(27, 33, 25, 0.72);
+  --nav-border: rgba(51, 63, 48, 0.8);
+  --nav-link-color: #A6B2A2;
+  --nav-link-hover-bg: rgba(125, 176, 126, 0.14);
+  --nav-pill-bg: rgba(35, 43, 33, 0.55);
+  --nav-pill-border: #333F30;
+  --nav-divider: #333F30;
+  --nav-logout-border: #333F30;
+  --nav-logout-bg: #232B21;
+}
+
+body, .bloom-card {
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-app);
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
