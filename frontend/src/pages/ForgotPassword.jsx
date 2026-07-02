@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiMail, FiArrowRight, FiArrowLeft, FiCheck } from "react-icons/fi";
 import supabase from "../lib/supabase";
-import BloomShape from "../assets/Bloom Logo (Shape).png";
-import BloomText from "../assets/Bloom Logo (Text).png";
+import BloomShape from "../assets/logo-shape.png";
+import BloomText from "../assets/logo-text.png";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");

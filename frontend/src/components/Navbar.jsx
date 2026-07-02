@@ -9,8 +9,8 @@ import { useLanguage } from "../context/LanguageContext";
 import ThemeToggle from "./ThemeToggle";
 import LanguageToggle from "./LanguageToggle";
 
-import shapeLogo from "../assets/Bloom Logo (shape).png";
-import textLogo from "../assets/Bloom Logo (text).png";
+import shapeLogo from "../assets/logo-shape.png";
+import textLogo from "../assets/logo-text.png";
 
 function Navbar() {
   const navigate = useNavigate();
