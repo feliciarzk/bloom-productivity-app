@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { FiTrendingUp, FiAward, FiZap } from "react-icons/fi";
 import supabase from "../lib/supabase";
 import Navbar from "../components/Navbar";
-import { useLanguage } from "../context/LanguageContext";
 
 const DAILY_GOAL = 6; // completions that count as a "fully bloomed" day
 
 function Progress() {
-  const { t, lang } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [garden, setGarden] = useState([]);
 
@@ -52,7 +50,7 @@ function Progress() {
 
       days.push({
         date: dateStr,
-        dateObj: d,
+        dayLabel: d.toLocaleDateString("id-ID", { weekday: "short" }),
         dateLabel: d.getDate(),
         total: taskCount + habitCount,
         isToday: i === 0,
@@ -68,12 +66,6 @@ function Progress() {
     if (total <= 2) return 1;
     if (total <= 4) return 2;
     return 3;
-  }
-
-  function formatDayLabel(dateObj) {
-    return dateObj.toLocaleDateString(lang === "en" ? "en-US" : "id-ID", {
-      weekday: "short",
-    });
   }
 
   const totalWeek = garden.reduce((sum, d) => sum + d.total, 0);
@@ -98,7 +90,7 @@ function Progress() {
       <div style={styles.loadingShell}>
         <style>{globalStyle}</style>
         <div style={styles.loadingRing} />
-        <p style={styles.loadingText}>{t("progress.loading")}</p>
+        <p style={styles.loadingText}>Menumbuhkan taman progres kamu</p>
       </div>
     );
   }
@@ -121,10 +113,11 @@ function Progress() {
         <div style={styles.container}>
           {/* Header */}
           <div style={styles.header}>
-            <span style={styles.eyebrow}>{t("progress.eyebrow")}</span>
-            <h1 style={styles.heading}>{t("progress.heading")}</h1>
+            <span style={styles.eyebrow}>PROGRESS</span>
+            <h1 style={styles.heading}>Taman Progres 🌸</h1>
             <p style={styles.subheading}>
-              {t("progress.subheading")}
+              Tiap tugas dan habit yang kamu selesaikan menumbuhkan satu bunga
+              di taman ini.
             </p>
           </div>
 
@@ -168,36 +161,36 @@ function Progress() {
             </div>
 
             <div style={styles.heroRight}>
-              <span style={styles.cardEyebrow}>{t("progress.today")}</span>
+              <span style={styles.cardEyebrow}>HARI INI</span>
               <p style={styles.heroNumber}>
                 {today?.total || 0}{" "}
-                <span style={styles.heroUnit}>{t("progress.activitiesDone")}</span>
+                <span style={styles.heroUnit}>aktivitas selesai</span>
               </p>
               <p style={styles.heroHint}>
                 {todayPct >= 100
-                  ? t("progress.hintDone")
+                  ? "Bunga hari ini mekar penuh. Kerja bagus!"
                   : todayPct === 0
-                  ? t("progress.hintZero")
-                  : t("progress.hintPartial")}
+                  ? "Selesaikan satu tugas atau habit untuk mulai menanam."
+                  : "Terus rawat, sedikit lagi mekar sempurna."}
               </p>
 
               <div style={styles.heroStats}>
                 <HeroStat
                   icon={<FiTrendingUp size={14} />}
-                  label={t("progress.totalWeek")}
+                  label="Total minggu ini"
                   value={totalWeek}
                 />
                 <HeroStat
                   icon={<FiZap size={14} />}
-                  label={t("progress.streak")}
-                  value={`${streak} ${t("progress.streakUnit")}`}
+                  label="Streak aktif"
+                  value={`${streak} hari`}
                 />
                 <HeroStat
                   icon={<FiAward size={14} />}
-                  label={t("progress.bestDay")}
+                  label="Hari terbaik"
                   value={
                     bestDay.total > 0
-                      ? `${formatDayLabel(bestDay.dateObj)} (${bestDay.total})`
+                      ? `${bestDay.dayLabel} (${bestDay.total})`
                       : "—"
                   }
                 />
@@ -207,7 +200,7 @@ function Progress() {
 
           {/* Garden row */}
           <div className="bloom-card" style={styles.gardenCard}>
-            <span style={styles.cardEyebrow}>{t("progress.last7Days")}</span>
+            <span style={styles.cardEyebrow}>7 HARI TERAKHIR</span>
 
             <div style={styles.gardenRow}>
               {garden.map((day) => (
@@ -223,7 +216,7 @@ function Progress() {
                       fontWeight: day.isToday ? 700 : 600,
                     }}
                   >
-                    {formatDayLabel(day.dateObj)}
+                    {day.dayLabel}
                   </span>
                   <span style={styles.dayCount}>{day.total}</span>
                 </div>
@@ -231,10 +224,10 @@ function Progress() {
             </div>
 
             <div style={styles.legend}>
-              <LegendItem stage={0} label={t("progress.legendEmpty")} />
-              <LegendItem stage={1} label={t("progress.legendSprout")} />
-              <LegendItem stage={2} label={t("progress.legendBud")} />
-              <LegendItem stage={3} label={t("progress.legendBloom")} />
+              <LegendItem stage={0} label="Belum ada" />
+              <LegendItem stage={1} label="Mulai tumbuh" />
+              <LegendItem stage={2} label="Berkuncup" />
+              <LegendItem stage={3} label="Mekar penuh" />
             </div>
           </div>
         </div>

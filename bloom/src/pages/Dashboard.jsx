@@ -19,6 +19,26 @@ function Dashboard() {
 
   useEffect(() => {
     loadDashboard();
+
+    // Realtime subscription: setiap ada perubahan di tasks / habit_logs,
+    // dashboard akan otomatis reload sehingga Recent Activity ikut ke-upgrade.
+    const channel = supabase
+      .channel("dashboard-changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "tasks" },
+        () => loadDashboard()
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "habit_logs" },
+        () => loadDashboard()
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   async function loadDashboard() {
@@ -39,28 +59,40 @@ function Dashboard() {
     ]);
 
     const tasks = tasksResult.data || [];
+    const habitLogs = habitsResult.data || [];
 
     const completed = tasks.filter((task) => task.is_completed).length;
 
     setTotalTasks(tasks.length);
     setCompletedTasks(completed);
 
-    const recentActivities = [];
-
-    tasks
+    // Gabungkan task selesai + habit log jadi satu list,
+    // lalu urutkan berdasarkan waktu asli (bukan urutan array biasa).
+    const taskActivities = tasks
       .filter((task) => task.is_completed)
-      .slice(0, 3)
-      .forEach((task) => {
-        recentActivities.push({
-          id: task.id,
-          type: "task",
-          title: task.title,
-          descriptionKey: "dashboard.taskCompleted",
-          time: "Recently",
-        });
-      });
+      .map((task) => ({
+        id: `task-${task.id}`,
+        type: "task",
+        title: task.title,
+        descriptionKey: "dashboard.taskCompleted",
+        // Sesuaikan nama kolom jika tabel tasks-mu tidak punya updated_at
+        timestamp: task.updated_at || task.created_at,
+      }));
 
-    setActivities(recentActivities);
+    const habitActivities = habitLogs.map((log) => ({
+      id: `habit-${log.id}`,
+      type: "habit",
+      title: log.habits?.name || t("dashboard.habitUnknown"),
+      descriptionKey: "dashboard.habitLogged",
+      timestamp: log.created_at,
+    }));
+
+    const merged = [...taskActivities, ...habitActivities]
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+      .slice(0, 5)
+      .map((activity) => ({ ...activity, time: timeAgo(activity.timestamp) }));
+
+    setActivities(merged);
 
     setLoading(false);
   }
@@ -274,8 +306,6 @@ function Dashboard() {
 }
 
 function BotanicalMotif({ style, flip }) {
-  // a quiet branch-and-leaf line motif, tied to the "Bloom" identity —
-  // drawn once, reused mirrored, kept low-opacity so it stays texture, not decoration
   return (
     <svg
       viewBox="0 0 420 420"
@@ -347,6 +377,21 @@ function StatCard({ icon, label, value, tint = "green" }) {
       </div>
     </div>
   );
+}
+
+// Mengubah timestamp jadi teks relatif, mis. "5 menit lalu"
+function timeAgo(dateString) {
+  if (!dateString) return "";
+  const seconds = Math.floor((Date.now() - new Date(dateString)) / 1000);
+
+  if (seconds < 60) return "Baru saja";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} menit lalu`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} jam lalu`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days} hari lalu`;
+  return new Date(dateString).toLocaleDateString();
 }
 
 const globalStyle = `
