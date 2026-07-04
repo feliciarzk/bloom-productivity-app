@@ -64,6 +64,7 @@ Authentication
 ---
 
 ## Project Structure
+```
 Bloom
 │
 ├── public/
@@ -80,6 +81,7 @@ Bloom
 ├── package.json
 ├── vite.config.js
 └── README.md
+```
 
 ---
 
