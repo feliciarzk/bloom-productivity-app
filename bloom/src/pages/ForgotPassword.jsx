@@ -42,6 +42,10 @@ function ForgotPassword() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap');
 
+        * {
+          box-sizing: border-box;
+        }
+
         .bloom-input { transition: border-color .2s ease, background .2s ease; }
         .bloom-input:focus {
           border-bottom-color: #4B7B5B !important;
@@ -53,11 +57,52 @@ function ForgotPassword() {
         .bloom-submit { transition: background .2s ease, transform .15s ease; }
         .bloom-submit:hover:not(:disabled) { background: #3A6248; }
         .bloom-submit:active:not(:disabled) { transform: scale(0.99); }
+
+        /* Tablet & below: hide the editorial visual panel, shrink form padding */
         @media (max-width: 880px) {
           .bloom-visual { display: none; }
           .bloom-form-col {
             padding: 48px 32px !important;
-            align-items: center !important;
+            align-items: flex-start !important;
+            min-height: 100vh;
+          }
+        }
+
+        /* Phones */
+        @media (max-width: 520px) {
+          .bloom-form-col {
+            padding: 32px 20px !important;
+          }
+          .bloom-form-wrap {
+            max-width: 100% !important;
+          }
+          .bloom-heading {
+            font-size: 30px !important;
+          }
+          .bloom-subheading {
+            font-size: 14px !important;
+          }
+          .bloom-form-block {
+            margin-top: 28px !important;
+          }
+          .bloom-input {
+            font-size: 16px !important; /* prevents iOS auto-zoom on focus */
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+          }
+          .bloom-submit {
+            padding: 14px 0 !important;
+            margin-top: 26px !important;
+          }
+        }
+
+        /* Very small phones */
+        @media (max-width: 360px) {
+          .bloom-form-col {
+            padding: 24px 16px !important;
+          }
+          .bloom-heading {
+            font-size: 26px !important;
           }
         }
       `}</style>
@@ -106,7 +151,7 @@ function ForgotPassword() {
       </div>
 
       <div className="bloom-form-col" style={styles.formCol}>
-        <div style={styles.formWrap}>
+        <div className="bloom-form-wrap" style={styles.formWrap}>
           <Link to="/login" className="bloom-link" style={styles.backLink}>
             <FiArrowLeft size={15} />
             <span>Kembali ke masuk</span>
@@ -115,13 +160,13 @@ function ForgotPassword() {
           {!sent && (
             <div>
               <span style={styles.eyebrow}>RESET PASSWORD</span>
-              <h1 style={styles.heading}>Lupa password?</h1>
-              <p style={styles.subheading}>
+              <h1 className="bloom-heading" style={styles.heading}>Lupa password?</h1>
+              <p className="bloom-subheading" style={styles.subheading}>
                 Masukkan email akun kamu, kami akan kirim link untuk atur
                 ulang password.
               </p>
 
-              <form onSubmit={handleReset} style={{ marginTop: 40 }}>
+              <form onSubmit={handleReset} className="bloom-form-block" style={{ marginTop: 40 }}>
                 <label style={styles.label}>Email</label>
                 <div style={styles.inputRow}>
                   <FiMail size={17} style={styles.inputIcon} />
@@ -158,8 +203,8 @@ function ForgotPassword() {
                 <FiCheck size={22} />
               </div>
               <span style={styles.eyebrow}>EMAIL TERKIRIM</span>
-              <h1 style={styles.heading}>Cek inbox kamu</h1>
-              <p style={styles.subheading}>
+              <h1 className="bloom-heading" style={styles.heading}>Cek inbox kamu</h1>
+              <p className="bloom-subheading" style={styles.subheading}>
                 Kami sudah kirim link reset password ke{" "}
                 <strong style={{ color: "#1C2A20" }}>{email}</strong>. Buka
                 email tersebut untuk lanjut atur ulang password.
@@ -187,6 +232,7 @@ const styles = {
     display: "flex",
     fontFamily: "'Inter', sans-serif",
     background: "#F8F5EC",
+    flexWrap: "wrap",
   },
   visual: {
     width: "42%",
@@ -249,6 +295,7 @@ const styles = {
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "150px 48px 48px",
+    width: "100%",
   },
   formWrap: {
     width: "100%",

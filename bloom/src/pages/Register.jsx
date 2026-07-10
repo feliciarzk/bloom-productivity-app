@@ -62,6 +62,10 @@ function Register() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap');
 
+        * {
+          box-sizing: border-box;
+        }
+
         .bloom-input {
           transition: border-color .2s ease, background .2s ease;
         }
@@ -93,11 +97,55 @@ function Register() {
         .bloom-toggle:hover {
           color: #1C2A20 !important;
         }
+
+        /* Tablet & below: hide the editorial visual panel, shrink form padding */
         @media (max-width: 880px) {
           .bloom-visual { display: none; }
           .bloom-form-col {
             padding: 48px 32px !important;
-            align-items: center !important;
+            align-items: flex-start !important;
+            min-height: 100vh;
+          }
+        }
+
+        /* Phones */
+        @media (max-width: 520px) {
+          .bloom-form-col {
+            padding: 32px 20px !important;
+          }
+          .bloom-form-wrap {
+            max-width: 100% !important;
+          }
+          .bloom-heading {
+            font-size: 30px !important;
+          }
+          .bloom-subheading {
+            font-size: 14px !important;
+          }
+          .bloom-form-block {
+            margin-top: 28px !important;
+          }
+          .bloom-input {
+            font-size: 16px !important; /* prevents iOS auto-zoom on focus */
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+          }
+          .bloom-submit {
+            padding: 14px 0 !important;
+            margin-top: 26px !important;
+          }
+          .bloom-divider-row {
+            margin: 26px 0 18px !important;
+          }
+        }
+
+        /* Very small phones */
+        @media (max-width: 360px) {
+          .bloom-form-col {
+            padding: 24px 16px !important;
+          }
+          .bloom-heading {
+            font-size: 26px !important;
           }
         }
       `}</style>
@@ -148,14 +196,14 @@ function Register() {
 
       {/* Right — form */}
       <div className="bloom-form-col" style={styles.formCol}>
-        <div style={styles.formWrap}>
+        <div className="bloom-form-wrap" style={styles.formWrap}>
           <span style={styles.eyebrow}>SIGN UP</span>
-          <h1 style={styles.heading}>Buat akun</h1>
-          <p style={styles.subheading}>
+          <h1 className="bloom-heading" style={styles.heading}>Buat akun</h1>
+          <p className="bloom-subheading" style={styles.subheading}>
             Mulai catat progres dan bangun kebiasaan baikmu bersama Bloom.
           </p>
 
-          <form onSubmit={handleRegister} style={{ marginTop: 40 }}>
+          <form onSubmit={handleRegister} className="bloom-form-block" style={{ marginTop: 40 }}>
             <label style={styles.label}>Nama Lengkap</label>
             <div style={styles.inputRow}>
               <FiUser size={17} style={styles.inputIcon} />
@@ -244,7 +292,7 @@ function Register() {
               {!loading && <FiArrowRight size={17} />}
             </button>
 
-            <div style={styles.dividerRow}>
+            <div className="bloom-divider-row" style={styles.dividerRow}>
               <span style={styles.dividerLine} />
               <span style={styles.dividerText}>Sudah punya akun?</span>
               <span style={styles.dividerLine} />
@@ -268,6 +316,7 @@ const styles = {
     display: "flex",
     fontFamily: "'Inter', sans-serif",
     background: "#F8F5EC",
+    flexWrap: "wrap",
   },
 
   /* Left panel */
@@ -334,6 +383,7 @@ const styles = {
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "150px 48px 48px",
+    width: "100%",
   },
   formWrap: {
     width: "100%",

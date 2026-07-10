@@ -37,19 +37,15 @@ function Navbar() {
           position: sticky;
           top: 0;
           z-index: 100;
-
           background: var(--nav-bg);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-
           border-bottom: 1px solid var(--nav-border);
-          box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 8px 24px -18px rgba(0,0,0,0.15);
+          backdrop-filter: blur(12px);
         }
 
         .navbar-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 12px 20px;
+          padding: 14px 20px;
 
           display: flex;
           align-items: center;
@@ -61,32 +57,27 @@ function Navbar() {
           align-items: center;
           gap: 10px;
           text-decoration: none;
-          transition: transform 0.2s ease;
-        }
-
-        .navbar-logo:hover {
-          transform: translateY(-1px);
         }
 
         .navbar-logo-shape {
-          height: 44px;
+          height: 46px;
         }
 
         .navbar-logo-text {
-          height: 28px;
+          height: 30px;
         }
 
         /* DESKTOP MENU */
         .desktop-menu {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 14px;
         }
 
         .navbar-links {
           display: flex;
           align-items: center;
-          gap: 2px;
+          gap: 4px;
 
           padding: 4px;
           border-radius: 999px;
@@ -97,88 +88,44 @@ function Navbar() {
 
         .navbar-link {
           text-decoration: none;
-          position: relative;
 
-          padding: 9px 16px;
+          padding: 10px 16px;
           border-radius: 999px;
 
           color: var(--text-secondary);
           font-size: 14px;
           font-weight: 500;
-          white-space: nowrap;
 
-          transition: color 0.2s ease, background 0.2s ease;
+          transition: 0.2s ease;
         }
 
         .navbar-link:hover {
           background: var(--nav-link-hover-bg);
-          color: var(--text-primary);
         }
 
+        /* FIX UTAMA DI SINI */
         .navbar-link.active {
-          background: linear-gradient(135deg, var(--accent-green-light, var(--accent-green)) 0%, var(--accent-green) 100%);
+          background: var(--accent-green);
           color: #0f172a;
           font-weight: 600;
-          box-shadow: 0 4px 10px -4px rgba(0,0,0,0.25);
         }
 
-        /* TOGGLE GROUP — dibuat jadi satu pill utuh, elemen di dalamnya
-           dipaksa transparan supaya ThemeToggle & LanguageToggle
-           tidak tampil sebagai kotak putih terpisah */
         .navbar-toggle-group {
           display: flex;
           align-items: center;
-          gap: 2px;
+          gap: 6px;
 
-          padding: 4px;
+          padding: 4px 8px;
           border-radius: 999px;
 
           background: var(--nav-pill-bg);
           border: 1px solid var(--nav-pill-border);
         }
 
-        .navbar-toggle-group > * {
-          background: transparent !important;
-          border: none !important;
-          box-shadow: none !important;
-        }
-
-        .navbar-toggle-group button,
-        .navbar-toggle-group [role="button"],
-        .navbar-toggle-group a {
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-
-          height: 32px !important;
-          min-width: 32px !important;
-          padding: 0 10px !important;
-
-          border-radius: 999px !important;
-          background: transparent !important;
-          border: none !important;
-          box-shadow: none !important;
-
-          color: var(--text-secondary) !important;
-          font-size: 13px !important;
-          font-weight: 500 !important;
-
-          cursor: pointer;
-          transition: background 0.2s ease, color 0.2s ease !important;
-        }
-
-        .navbar-toggle-group button:hover,
-        .navbar-toggle-group [role="button"]:hover,
-        .navbar-toggle-group a:hover {
-          background: var(--nav-link-hover-bg) !important;
-          color: var(--text-primary) !important;
-        }
-
         .navbar-divider {
           width: 1px;
-          height: 16px;
+          height: 18px;
           background: var(--nav-divider);
-          margin: 0 2px;
         }
 
         .navbar-logout {
@@ -193,38 +140,22 @@ function Navbar() {
           background: var(--nav-pill-bg);
 
           color: var(--text-secondary);
-          font-size: 14px;
-          font-weight: 500;
           cursor: pointer;
 
-          transition: 0.2s ease;
+          transition: 0.2s;
         }
 
         .navbar-logout:hover {
           color: #c0604a;
-          border-color: rgba(192, 96, 74, 0.35);
-          background: rgba(192, 96, 74, 0.06);
         }
 
         /* MOBILE */
         .hamburger-btn {
           display: none;
-          align-items: center;
-          justify-content: center;
-
-          width: 40px;
-          height: 40px;
-          border-radius: 999px;
-
-          background: var(--nav-pill-bg);
-          border: 1px solid var(--nav-pill-border);
-          color: var(--text-primary);
+          background: transparent;
+          border: none;
           cursor: pointer;
-          transition: background 0.2s ease;
-        }
-
-        .hamburger-btn:hover {
-          background: var(--nav-link-hover-bg);
+          color: var(--text-primary);
         }
 
         .mobile-menu {
@@ -238,6 +169,8 @@ function Navbar() {
 
           .hamburger-btn {
             display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .navbar-logo-text {
@@ -247,9 +180,9 @@ function Navbar() {
           .mobile-menu {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
 
-            padding: 14px 16px 18px;
+            padding: 16px;
 
             border-top: 1px solid var(--nav-border);
             background: var(--nav-bg);
@@ -261,7 +194,6 @@ function Navbar() {
             padding: 12px 14px;
             border-radius: 14px;
 
-            font-size: 14px;
             color: var(--text-primary);
 
             background: var(--nav-pill-bg);
@@ -269,7 +201,7 @@ function Navbar() {
           }
 
           .mobile-link.active {
-            background: linear-gradient(135deg, var(--accent-green-light, var(--accent-green)) 0%, var(--accent-green) 100%);
+            background: var(--accent-green);
             color: #0f172a;
             font-weight: 600;
           }
@@ -277,44 +209,7 @@ function Navbar() {
           .mobile-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
-
-            padding: 4px;
-            border-radius: 999px;
-
-            background: var(--nav-pill-bg);
-            border: 1px solid var(--nav-pill-border);
-          }
-
-          .mobile-actions > * {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-          }
-
-          .mobile-actions button,
-          .mobile-actions [role="button"],
-          .mobile-actions a {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            flex: 1;
-
-            height: 36px !important;
-            padding: 0 10px !important;
-            border-radius: 999px !important;
-
-            background: transparent !important;
-            border: none !important;
-            color: var(--text-secondary) !important;
-            font-size: 13px !important;
-          }
-
-          .mobile-actions button:hover,
-          .mobile-actions [role="button"]:hover,
-          .mobile-actions a:hover {
-            background: var(--nav-link-hover-bg) !important;
-            color: var(--text-primary) !important;
+            gap: 10px;
           }
 
           .mobile-logout {
@@ -329,8 +224,6 @@ function Navbar() {
 
             border: 1px solid var(--nav-pill-border);
             background: var(--nav-pill-bg);
-            color: var(--text-secondary);
-            font-size: 14px;
 
             cursor: pointer;
           }
@@ -370,7 +263,7 @@ function Navbar() {
             </div>
 
             <button onClick={handleLogout} className="navbar-logout">
-              <FiLogOut size={15} />
+              <FiLogOut />
               <span>{t("nav.logout")}</span>
             </button>
           </div>
@@ -380,7 +273,7 @@ function Navbar() {
             className="hamburger-btn"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
@@ -407,7 +300,7 @@ function Navbar() {
             </div>
 
             <button onClick={handleLogout} className="mobile-logout">
-              <FiLogOut size={15} />
+              <FiLogOut />
               <span>{t("nav.logout")}</span>
             </button>
           </div>
