@@ -4,6 +4,11 @@ Bloom is designed with a clean and calming interface inspired by nature, making 
 
 ---
 
+## Live Demo
+https://bloom-productivity-app.vercel.app/
+
+---
+
 ## Features
 Task Management
 - Create, edit, and delete tasks
@@ -64,6 +69,7 @@ Authentication
 ---
 
 ## Project Structure
+```
 Bloom
 │
 ├── public/
@@ -80,6 +86,7 @@ Bloom
 ├── package.json
 ├── vite.config.js
 └── README.md
+```
 
 ---
 
