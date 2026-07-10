@@ -7,33 +7,28 @@ function LanguageToggle() {
   return (
     <button
       onClick={toggleLang}
-      title={
-        lang === "id"
-          ? "Switch to English"
-          : "Ganti ke Bahasa Indonesia"
-      }
-      className="
-        flex items-center gap-1
-        px-2 h-9
-        rounded-full
-        transition-all duration-200
-        hover:bg-black/5
-        dark:hover:bg-white/10
-      "
+      title={lang === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia"}
+      style={{
+        background: "transparent",
+        border: "none",
+        outline: "none",
+        padding: "0 8px",
+        height: "36px",
+        borderRadius: "9999px",
+        display: "flex",
+        alignItems: "center",
+        gap: "4px",
+        cursor: "pointer",
+      }}
     >
-      <Languages
-        size={16}
-        className="text-slate-600 dark:text-slate-300"
-      />
-
+      <Languages size={16} color="#475569" />
       <span
-        className="
-          text-xs
-          font-semibold
-          uppercase
-          text-slate-600
-          dark:text-slate-300
-        "
+        style={{
+          fontSize: "12px",
+          fontWeight: 600,
+          textTransform: "uppercase",
+          color: "#475569",
+        }}
       >
         {lang}
       </span>
